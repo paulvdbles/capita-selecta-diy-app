@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<body>
+
+{% include 'navbar.html' %}
+
+<div class="container">
+    <form action="" method="post">
+        <div class="field">
+            <label class="label" for="name">Name: </label>
+            <div class="control">
+                <input class="input" id="name" type="text" name="name">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="ip">IP: </label>
+            <div class="control">
+                <input class="input" id="ip" type="text" name="ip">
+            </div>
+        </div>
+        <input type="submit" value="OK" class="button is-primary">
+    </form>
+</div>
+
+</body>
+</html>
