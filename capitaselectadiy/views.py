@@ -6,7 +6,17 @@ from .forms import *
 
 
 def home(request):
-    return render(request, 'home.html')
+    from capitaselectadiy.models import Light
+    all_light_objects = Light.objects.all()
+    lights = {}
+
+    # add all light information to object you can show in table
+    for item in all_light_objects:
+        lights[item.id] = {'name': item.name,
+                           'ip': str(item.ip)}
+
+    context = {"lights": lights}
+    return render(request, 'home.html', context)
 
 
 @csrf_exempt

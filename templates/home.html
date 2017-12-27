@@ -7,5 +7,25 @@
 
 {% include 'navbar.html' %}
 
+<div class="container">
+    <table class="table is-striped is-narrow is-fullwidth">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>IP</th>
+            <th>Switch</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, values in lights.items %}
+            <tr>
+                <td>{{ values.name }}</td>
+                <td>{{ values.ip }}</td>
+                <td>(knoppie)</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
