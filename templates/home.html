@@ -21,7 +21,12 @@
             <tr>
                 <td>{{ values.name }}</td>
                 <td>{{ values.ip }}</td>
-                <td>(knoppie)</td>
+                <td>
+                    <div class="field">
+                        <input id="{{ values.ip }}" type="checkbox" name="switch" class="switch" checked="checked">
+                        <label for="{{ values.ip }}"></label>
+                    </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

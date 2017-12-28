@@ -1,8 +1,7 @@
-window.onload = function() {
-    var el = document.getElementById("message");
+document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("delete").addEventListener("click", deleteMessage);
 
     function deleteMessage() {
-         el.parentNode.removeChild(el);
+        document.getElementById("message").remove();
     }
-};
+});

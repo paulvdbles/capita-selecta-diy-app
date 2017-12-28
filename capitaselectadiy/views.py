@@ -1,6 +1,7 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+import requests
 
 from .forms import *
 
@@ -37,3 +38,14 @@ def addlight(request):
             return render(request, "add_ light.html", context)
     else:
         return render(request, "add_ light.html")
+
+
+@csrf_exempt
+def switchlight(request):
+    light_id = request.POST.get('light_ip', None)
+
+    url = 'http://' + light_id + '/ledon'
+    print(url)
+    requests.put(url)
+
+    return HttpResponse(status=204)
