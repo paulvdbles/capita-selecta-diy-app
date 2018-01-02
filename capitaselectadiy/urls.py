@@ -19,8 +19,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    url(r'^$', views.home, name='home'),
     path('add_light/', views.addlight, name='add_light'),
-    path('ajax/switch_light/', views.switchlight, name='switch_light'),
+    path('ajax/switch_light_on/', views.switch_light_on, name='switch_light_on'),
+    url(r'^ajax/switch_light_on/$', views.switch_light_on, name='switch_light_on'),
+    url(r'^ajax/switch_light_off/$', views.switch_light_off, name='switch_light_off'),
     path('admin/', admin.site.urls),
 ]

@@ -1,3 +1,4 @@
+import json
 from django.http import Http404, HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -13,8 +14,9 @@ def home(request):
 
     # add all light information to object you can show in table
     for item in all_light_objects:
-        lights[item.id] = {'name': item.name,
-                           'ip': str(item.ip)}
+        lights[item.ip] = {'name': item.name,
+                           'ip': str(item.ip),
+                           'state': item.state}
 
     context = {"lights": lights}
     return render(request, 'home.html', context)
@@ -31,7 +33,7 @@ def addlight(request):
 
             # create light object
             from capitaselectadiy.models import Light
-            light = Light.objects.create(name=name, ip=ip)
+            light = Light.objects.create(name=name, ip=ip, state=False)
 
             # add a message to the context
             context = {"type": "Light", "message": " added successfully!"}
@@ -41,11 +43,26 @@ def addlight(request):
 
 
 @csrf_exempt
-def switchlight(request):
-    light_id = request.POST.get('light_ip', None)
+def switch_light_on(request):
+    # get the ip from the request and set a PUT request to the ip
+    ip = request.POST.get('light_ip', None)
+    requests.put('http://' + ip + '/ledon')
 
-    url = 'http://' + light_id + '/ledon'
-    print(url)
-    requests.put(url)
+    # save the light on state to the database
+    from capitaselectadiy.models import Light
+    Light.objects.filter(pk=ip).update(state=True)
 
-    return HttpResponse(status=204)
+    return JsonResponse({'success': 'Light turned on'})
+
+
+@csrf_exempt
+def switch_light_off(request):
+    # get the ip from the request and set a PUT request to the ip
+    ip = request.POST.get('light_ip', None)
+    requests.put('http://' + ip + '/ledoff')
+
+    # save the light off state to the database
+    from capitaselectadiy.models import Light
+    Light.objects.filter(pk=ip).update(state=False)
+
+    return JsonResponse({'success': 'Light turned off'})

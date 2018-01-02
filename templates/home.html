@@ -23,7 +23,7 @@
                 <td>{{ values.ip }}</td>
                 <td>
                     <div class="field">
-                        <input id="{{ values.ip }}" type="checkbox" name="switch" class="switch" checked="checked">
+                        <input id="{{ values.ip }}" type="checkbox" name="switch" class="switch" {% if values.state %}checked="checked"{% endif %}>
                         <label for="{{ values.ip }}"></label>
                     </div>
                 </td>

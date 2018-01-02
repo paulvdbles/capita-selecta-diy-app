@@ -22,22 +22,38 @@ document.addEventListener('DOMContentLoaded', function () {
     function turnLightOn(lamp) {
         console.log("Turn light on");
 
-        $.ajax({
-            type: "POST",
-            url: '/ajax/switch_light/',
+        var posting = $.ajax({
+            method: "POST",
+            url: '/ajax/switch_light_on/',
             data: {'light_ip': lamp.id},
             dataType: 'json'
+        });
+
+        posting.done(function () {
+            console.log("Light turned on!")
+        });
+
+        posting.fail(function () {
+            console.log("Error: light didn't turned on!")
         });
     }
 
     function turnLightOff(lamp) {
         console.log("Turn light off");
 
-        $.ajax({
-            type: "POST",
-            url: '/ajax/switch_light/',
+        var posting = $.ajax({
+            method: "POST",
+            url: '/ajax/switch_light_off/',
             data: {'light_ip': lamp.id},
             dataType: 'json'
+        });
+
+        posting.done(function () {
+            console.log("Light turned off!")
+        });
+
+        posting.fail(function () {
+            console.log("Error: light didn't turned off!")
         });
     }
 });
