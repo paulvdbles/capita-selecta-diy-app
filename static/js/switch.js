@@ -1,21 +1,26 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     var switches = document.getElementsByClassName('switch');
+    var deleteButtons = document.getElementsByClassName('delete');
 
     for (var i = 0; i < switches.length; i++) {
         switches[i].addEventListener('click', switchClicked);
     }
 
-    function switchClicked() {
-        var attr = $(this).attr('checked');
+    for (var i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', deleteButtonClicked);
+    }
 
-        if (typeof attr !== typeof undefined && attr !== false) {
+    function switchClicked() {
+        var state = $(this).attr('checked');
+
+        if (typeof state !== typeof undefined && state !== false) {
             $(this).removeAttr('checked');
             turnLightOff(this);
         }
         else {
             $(this).attr('checked', 'checked');
-            turnLightOn(this)
+            turnLightOn(this);
         }
     }
 
@@ -30,11 +35,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         posting.done(function () {
-            console.log("Light turned on!")
+            console.log("Light turned on!");
         });
 
         posting.fail(function () {
-            console.log("Error: light didn't turned on!")
+            console.log("Error: light didn't turned on!");
         });
     }
 
@@ -49,11 +54,32 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         posting.done(function () {
-            console.log("Light turned off!")
+            console.log("Light turned off!");
         });
 
         posting.fail(function () {
-            console.log("Error: light didn't turned off!")
+            console.log("Error: light didn't turned off!");
+        });
+    }
+
+    function deleteButtonClicked() {
+        var ip = $(this).attr('ip');
+
+        var posting = $.ajax({
+            method: "POST",
+            url: '/ajax/delete_light/',
+            data: {'light_ip': ip},
+            dataType: 'json'
+        });
+
+
+        posting.done(function () {
+            console.log("Light deleted!");
+            $(this).closest('.tr').remove();
+        });
+
+        posting.fail(function () {
+            console.log("Error: light wasn't deleted!");
         });
     }
 });

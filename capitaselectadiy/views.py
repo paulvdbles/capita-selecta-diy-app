@@ -66,3 +66,16 @@ def switch_light_off(request):
     Light.objects.filter(pk=ip).update(state=False)
 
     return JsonResponse({'success': 'Light turned off'})
+
+
+@csrf_exempt
+def delete_light(request):
+    # get the ip from the request and set a PUT request to the ip
+    ip = request.POST.get('light_ip', None)
+    print(ip)
+
+    # delete light from the database
+    from capitaselectadiy.models import Light
+    Light.objects.filter(pk=ip).delete()
+
+    return JsonResponse({'success': 'Light is deleted'})

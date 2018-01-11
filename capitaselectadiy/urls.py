@@ -21,8 +21,8 @@ from . import views
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     path('add_light/', views.addlight, name='add_light'),
-    path('ajax/switch_light_on/', views.switch_light_on, name='switch_light_on'),
     url(r'^ajax/switch_light_on/$', views.switch_light_on, name='switch_light_on'),
     url(r'^ajax/switch_light_off/$', views.switch_light_off, name='switch_light_off'),
+    path('ajax/delete_light/', views.delete_light, name='delete_light'),
     path('admin/', admin.site.urls),
 ]

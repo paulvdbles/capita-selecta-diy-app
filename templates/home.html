@@ -14,21 +14,26 @@
             <th>Name</th>
             <th>IP</th>
             <th>Switch</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-        {% for key, values in lights.items %}
-            <tr>
-                <td>{{ values.name }}</td>
-                <td>{{ values.ip }}</td>
-                <td>
-                    <div class="field">
-                        <input id="{{ values.ip }}" type="checkbox" name="switch" class="switch" {% if values.state %}checked="checked"{% endif %}>
-                        <label for="{{ values.ip }}"></label>
-                    </div>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for key, values in lights.items %}
+                <tr class="tr">
+                    <td>{{ values.name }}</td>
+                    <td>{{ values.ip }}</td>
+                    <td>
+                        <div class="field">
+                            <input id="{{ values.ip }}" type="checkbox" name="switch" class="switch"
+                                   {% if values.state %}checked="checked"{% endif %}>
+                            <label for="{{ values.ip }}"></label>
+                        </div>
+                    </td>
+                    <td>
+                        <a class="delete" ip="{{ values.ip }}"></a>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
