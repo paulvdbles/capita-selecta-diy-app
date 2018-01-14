@@ -72,10 +72,10 @@ document.addEventListener('DOMContentLoaded', function () {
             dataType: 'json'
         });
 
+        $(this).closest('.tr').remove();
 
         posting.done(function () {
             console.log("Light deleted!");
-            $(this).closest('.tr').remove();
         });
 
         posting.fail(function () {
